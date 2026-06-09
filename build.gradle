@@ -58,15 +58,15 @@ dependencies {
     compileOnly "io.github.llamalad7:mixinextras-common:${mixin_extras_version}"
     annotationProcessor "io.github.llamalad7:mixinextras-common:${mixin_extras_version}"
 
-    // ======= 以下为修改后的本地前置读取 =======
-    runtimeOnly fg.deobf(name: "baubles")
-    implementation fg.deobf(name: "patchouli")
-    compileOnly fg.deobf(name: "baubles-ex")
-    implementation fg.deobf(name: "trinkets-and-baubles")
-    compileOnly fg.deobf(name: "simpledifficulty")
-    compileOnly fg.deobf(name: "rlcombat")
-    implementation fg.deobf(name: "fermiumbooter")
-    compileOnly fg.deobf(name: "first-aid")
+    /    // ======= 以下为修改后的本地前置读取 =======
+    runtimeOnly fg.deobf("dummy:baubles:1.0")
+    implementation fg.deobf("dummy:patchouli:1.0")
+    compileOnly fg.deobf("dummy:baubles-ex:1.0")
+    implementation fg.deobf("dummy:trinkets-and-baubles:1.0")
+    compileOnly fg.deobf("dummy:simpledifficulty:1.0")
+    compileOnly fg.deobf("dummy:rlcombat:1.0")
+    implementation fg.deobf("dummy:fermiumbooter:1.0")
+    compileOnly fg.deobf("dummy:first-aid:1.0")
 }
 
 
