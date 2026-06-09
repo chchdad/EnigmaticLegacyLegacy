@@ -1732,7 +1732,8 @@ public class EnigmaticEvents {
             if (BaublesApi.isBaubleEquipped(player, EnigmaticLegacy.blazingCore) != -1) {
                 if (event.getSource().getTrueSource() instanceof EntityLivingBase) {
                     EntityLivingBase attacker = (EntityLivingBase) event.getSource().getTrueSource();
-                    if (!attacker.isImmuneToFire() && event.getSource() != EntityDamageSource.causeThornsDamage(attacker)) {
+                    // 修复：改用字符串 equals 精确判断是否为 thorns (反伤/荆棘) 伤害
+                    if (!attacker.isImmuneToFire() && !event.getSource().damageType.equals("thorns")) {
                         attacker.attackEntityFrom(new EntityDamageSource(DamageSource.ON_FIRE.damageType, player), (float) magmaHeartDamageFeedback);
                         attacker.setFire(magmaHeartIgnitionFeedback);
                     }
@@ -1834,7 +1835,8 @@ public class EnigmaticEvents {
             EntityPlayerMP player = (EntityPlayerMP) event.getEntity();
             EntityLivingBase living = (EntityLivingBase) event.getSource().getTrueSource();
             if (BaublesApi.isBaubleEquipped(player, the_cube) != -1) {
-                if (event.getAmount() <= the_cube.getDamageLimit(player) && THEY_SEE_ME_ROLLIN.nextDouble() <= 0.35) {
+                // 修复：如果受到的已经是反弹(thorns)伤害，则绝对不触发无名方块的反弹逻辑
+                if (!event.getSource().damageType.equals("thorns") && event.getAmount() <= the_cube.getDamageLimit(player) && THEY_SEE_ME_ROLLIN.nextDouble() <= 0.35) {
                     event.setCanceled(true);
                     living.attackEntityFrom(event.getSource(), event.getAmount());
                     player.world.playSound(null, player.getPosition(), SoundEvents.BLOCK_NOTE_GUITAR, SoundCategory.PLAYERS, 1F, 1F);
