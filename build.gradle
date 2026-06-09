@@ -47,7 +47,7 @@ minecraft {
 
 repositories {
     flatDir { dirs 'libs' }
-    maven { url = 'https://www.cursemaven.com' }
+    maven { url = 'https://cfa2.cursemaven.com' }
 }
 
 dependencies {
