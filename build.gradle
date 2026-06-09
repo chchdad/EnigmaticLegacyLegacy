@@ -30,7 +30,6 @@ minecraft {
         }
 
         server {
-
             jvmArg "-Dfml.coreMods.load=${mixin_loader_class}"
             jvmArg "-Dmixin.hotSwap=true"
             jvmArg "-Dmixin.checks.interfaces=true"
@@ -58,7 +57,7 @@ dependencies {
     compileOnly "io.github.llamalad7:mixinextras-common:${mixin_extras_version}"
     annotationProcessor "io.github.llamalad7:mixinextras-common:${mixin_extras_version}"
 
-    /    // ======= 以下为修改后的本地前置读取 =======
+    // ======= 以下为修改后的本地前置读取 =======
     runtimeOnly fg.deobf("dummy:baubles:1.0")
     implementation fg.deobf("dummy:patchouli:1.0")
     compileOnly fg.deobf("dummy:baubles-ex:1.0")
@@ -68,7 +67,6 @@ dependencies {
     implementation fg.deobf("dummy:fermiumbooter:1.0")
     compileOnly fg.deobf("dummy:first-aid:1.0")
 }
-
 
 mixin {
     add sourceSets.main, "mixins.${mod_id}.refmap.json"
@@ -117,7 +115,7 @@ jar {
         attr['FMLAT'] = 'enigmaticlegacy_at.cfg'
 
         def currentTasks = gradle.startParameter.taskNames
-        if (currentTasks[0] == 'build' || currentTasks[0] == 'assemble')
+        if (!currentTasks.isEmpty() && (currentTasks[0] == 'build' || currentTasks[0] == 'assemble'))
             attr['ForceLoadAsMod'] = "true"
         attributes(attr)
     }
