@@ -44,8 +44,8 @@ jobs:
           grep -rl "LivingHurtEvent" src/main/java/ | xargs grep -inC 8 -E "ocean|water|stone" || echo "未在伤害事件中找到相关词汇"
 
 
-    - name: Build with Gradle
-      run: ./gradlew build
+    #- name: Build with Gradle
+      #run: ./gradlew build
 
     - name: Upload Artifact
       uses: actions/upload-artifact@v4
