@@ -23,6 +23,26 @@ jobs:
 
     - name: Grant Execute Permission for Gradlew
       run: chmod +x gradlew
+    - name: 🔍 探查海洋之石(Ocean Stone)的水生生物判定逻辑
+      run: |
+          echo "====================================================="
+          echo "🔍 1. 搜索判断【水生生物】的底层逻辑 (WATER 属性或 EntityWaterMob)"
+          echo "====================================================="
+          grep -rnC 8 "EnumCreatureAttribute.WATER" src/main/java/ || echo "未找到 WATER 属性判定"
+          echo "-----------------------------------------------------"
+          grep -rnC 8 "EntityWaterMob" src/main/java/ || echo "未找到 EntityWaterMob 继承判定"
+          
+          echo "====================================================="
+          echo "🔍 2. 搜索海洋之石的专属类，查看它是如何拦截伤害的"
+          echo "====================================================="
+          grep -rnC 10 "class ItemOceanStone" src/main/java/ || echo "未找到 ItemOceanStone 类的确切位置"
+          
+          echo "====================================================="
+          echo "🔍 3. 搜索全局的伤害事件 (LivingHurtEvent)，看是否有集中的判断"
+          echo "====================================================="
+          # 在包含 LivingHurtEvent 的文件中，进一步过滤出包含 ocean 或 water 的代码块
+          grep -rl "LivingHurtEvent" src/main/java/ | xargs grep -inC 8 -E "ocean|water|stone" || echo "未在伤害事件中找到相关词汇"
+
 
     - name: Build with Gradle
       run: ./gradlew build
